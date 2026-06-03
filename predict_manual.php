@@ -1,415 +1,129 @@
 <?php
-
-include 'components/header.php';
+session_start();
 include 'config/database.php';
+if(!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
 
-$result = null;
-$error = null;
-
-if(isset($_POST['predict'])){
-
-    // =========================
-    // GET INPUT
-    // =========================
-
-    $age = $_POST['age'];
-    $gender = $_POST['gender'];
-    $gaming_hours = $_POST['gaming_hours'];
-    $genre = $_POST['genre'];
-    $platform = $_POST['platform'];
-    $sleep_hours = $_POST['sleep_hours'];
-    $stress_level = $_POST['stress_level'];
-    $anxiety_level = $_POST['anxiety_level'];
-    $social_isolation = $_POST['social_isolation'];
-    $academic_performance = $_POST['academic_performance'];
-    $work_productivity = $_POST['work_productivity'];
-    $physical_activity = $_POST['physical_activity'];
-    $caffeine = $_POST['caffeine'];
-    $screen_time = $_POST['screen_time'];
-    $mood_score = $_POST['mood_score'];
-
-    // =========================
-    // MODEL
-    // =========================
-
-    $model = $_POST['model'];
-
-    // =========================
-    // PYTHON COMMAND
-    // =========================
-
-    $command = "python predict.py $model manual "
-    . "\"$age\" "
-    . "\"$gender\" "
-    . "\"$gaming_hours\" "
-    . "\"$genre\" "
-    . "\"$platform\" "
-    . "\"5\" "
-    . "\"0\" "
-    . "\"$sleep_hours\" "
-    . "\"$stress_level\" "
-    . "\"$anxiety_level\" "
-    . "\"$social_isolation\" "
-    . "\"$academic_performance\" "
-    . "\"$work_productivity\" "
-    . "\"$physical_activity\" "
-    . "\"$caffeine\" "
-    . "\"$screen_time\" "
-    . "\"$mood_score\"";
-
-    // =========================
-    // RUN PYTHON
-    // =========================
-
-    $output = shell_exec($command);
-
-    // =========================
-    // CHECK ERROR
-    // =========================
-
-    if(str_contains($output, "ERROR")){
-
-        $error = $output;
-
-    }else{
-
-        $result = json_decode($output, true);
-
-    }
-
+if(isset($_POST['next_1'])) {
+    $_SESSION['step1_data'] = $_POST;
+    header("Location: predict_manual_2.php");
+    exit;
 }
-
+include 'components/header.php';
 ?>
 
-<div class="container">
+<style>
+    /* 1. Layout Wrapper */
+    .page-wrapper { 
+        display: grid; 
+        grid-template-columns: 48% 52%; 
+        min-height: 100vh; 
+        margin-top: 96px; /* Sesuaikan angka ini (coba 100px-150px sampai pas) */
+    }
 
-    <div class="form-card">
+    /* 2. Panel Kiri */
+    .left-panel { 
+        background: #1a1916; 
+        padding: 60px; 
+        color: #fff; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+    }
 
-        <h1 class="mb-4">
-            Prediksi Gaming Addiction
+    /* 3. Panel Kanan (Form) */
+    .right-panel {
+        background: #fafaf7; 
+        padding: 60px 80px !important; 
+        overflow-y: auto;
+    }
+
+    /* 4. Elemen Form */
+    .field-input { 
+        width: 100%; 
+        padding: 14px; 
+        border: 1px solid #d4d1c4; 
+        border-radius: 12px; 
+        margin-bottom: 20px; 
+        background: #ffffff;
+    }
+    .btn-continue { 
+        width: 100%; 
+        padding: 18px; 
+        background: #1a1916; 
+        color: #fff; 
+        border-radius: 12px; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        border: none; 
+        cursor: pointer;
+    }
+
+    .custom-navbar {
+        z-index: 99999 !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 991px) { 
+        .page-wrapper { grid-template-columns: 1fr; margin-top: 100px; } 
+    }
+</style>
+
+<div class="page-wrapper">
+    <aside class="left-panel">
+        <h1 style="font-family: 'Instrument Serif', serif; font-size: 56px;">
+            Siapa<br><em style="color:#c4b9ff;">kamu</em><br>sebagai gamer?
         </h1>
+        <p style="color:rgba(255,255,255,0.6); margin-top:20px; max-width: 400px;">
+            Ceritakan sedikit tentang dirimu dan kebiasaan gaming-mu. Data ini membantu kami memberikan analisis yang personal.
+        </p>
+    </aside>
 
+    <main class="right-panel">
         <form method="POST">
-
+            <h5 class="text-uppercase text-muted mb-4" style="letter-spacing: 2px; font-size: 12px;">Identitas Diri</h5>
             <div class="row">
-
-                <!-- AGE -->
-
-                <div class="col-md-6 mb-4">
-
+                <div class="col-md-6">
                     <label>Age</label>
-
-                    <input
-                        type="number"
-                        name="age"
-                        class="form-control custom-input"
-                        required
-                    >
-
+                    <input type="number" name="age" class="field-input" placeholder="Contoh: 20" required>
                 </div>
-
-                <!-- GENDER -->
-
-                <div class="col-md-6 mb-4">
-
+                <div class="col-md-6">
                     <label>Gender</label>
-
-                    <select
-                        name="gender"
-                        class="form-select custom-input"
-                    >
-
+                    <select name="gender" class="field-input">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-
                     </select>
-
                 </div>
-
-                <!-- GAMING HOURS -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Daily Gaming Hours</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="gaming_hours"
-                        class="form-control custom-input"
-                        required
-                    >
-
-                </div>
-
-                <!-- GENRE -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Game Genre</label>
-
-                    <select
-                        name="genre"
-                        class="form-select custom-input"
-                    >
-
-                        <option>Action</option>
-                        <option>RPG</option>
-                        <option>FPS</option>
-                        <option>MOBA</option>
-                        <option>Sports</option>
-
-                    </select>
-
-                </div>
-
-                <!-- PLATFORM -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Platform</label>
-
-                    <select
-                        name="platform"
-                        class="form-select custom-input"
-                    >
-
-                        <option>PC</option>
-                        <option>Mobile</option>
-                        <option>Console</option>
-
-                    </select>
-
-                </div>
-
-                <!-- SLEEP -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Sleep Hours</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="sleep_hours"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- STRESS -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Stress Level</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="stress_level"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- ANXIETY -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Anxiety Level</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="anxiety_level"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- SOCIAL -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Social Isolation</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="social_isolation"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- ACADEMIC -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Academic Performance</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="academic_performance"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- WORK -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Work Productivity</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="work_productivity"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- PHYSICAL -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Physical Activity</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="physical_activity"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- CAFFEINE -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Caffeine Intake</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="caffeine"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- SCREEN -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Screen Time</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="screen_time"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- MOOD -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Mood Score</label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        name="mood_score"
-                        class="form-control custom-input"
-                    >
-
-                </div>
-
-                <!-- MODEL -->
-
-                <div class="col-md-6 mb-4">
-
-                    <label>Machine Learning Model</label>
-
-                    <select
-                        name="model"
-                        class="form-select custom-input"
-                    >
-
-                        <option value="DT">
-                            Decision Tree
-                        </option>
-
-                        <option value="RF">
-                            Random Forest
-                        </option>
-
-                        <option value="KNN">
-                            KNN
-                        </option>
-
-                    </select>
-
-                </div>
-
             </div>
 
-            <button
-                type="submit"
-                name="predict"
-                class="btn btn-success"
-            >
+            <h5 class="text-uppercase text-muted mb-4 mt-4" style="letter-spacing: 2px; font-size: 12px;">Kebiasaan Gaming</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Daily Gaming Hours</label>
+                    <input type="number" step="0.1" name="daily_gaming_hours" class="field-input" placeholder="Contoh: 3.5" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Years Gaming</label>
+                    <input type="number" name="years_gaming" class="field-input" placeholder="Contoh: 5" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Game Genre</label>
+                    <input type="text" name="game_genre" class="field-input" placeholder="Contoh: FPS, RPG, MOBA" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Primary Game</label>
+                    <input type="text" name="primary_game" class="field-input" placeholder="Contoh: Valorant" required>
+                </div>
+                <div class="col-12">
+                    <label>Gaming Platform</label>
+                    <input type="text" name="gaming_platform" class="field-input" placeholder="Contoh: PC, PlayStation, Mobile" required>
+                </div>
+            </div>
 
-                Prediksi Sekarang
-
+            <button type="submit" name="next_1" class="btn-continue mt-4">
+                Continue to Health Analysis →
             </button>
-
         </form>
-
-    </div>
-
-    <!-- ERROR -->
-
-    <?php if($error): ?>
-
-        <div class="alert alert-danger mt-4">
-
-            <?= $error; ?>
-
-        </div>
-
-    <?php endif; ?>
-
-    <!-- RESULT -->
-
-    <?php if($result): ?>
-
-        <div class="result-card mt-5">
-
-            <h2>
-                Hasil Prediksi
-            </h2>
-
-            <h1>
-                <?= $result['prediction']; ?>
-            </h1>
-
-            <p>
-                Confidence:
-                <?= $result['confidence']; ?>%
-            </p>
-
-        </div>
-
-    <?php endif; ?>
-
+    </main>
 </div>
 
 <?php include 'components/footer.php'; ?>

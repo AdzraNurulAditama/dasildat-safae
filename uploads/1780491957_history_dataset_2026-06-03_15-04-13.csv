@@ -1,0 +1,20 @@
+```php
+id,age,gender,daily_gaming_hours,game_genre,primary_game,gaming_platform,sleep_hours,sleep_quality,sleep_disruption_frequency,continued_despite_problems,eye_strain,back_neck_pain,weight_change_kg,exercise_hours_weekly,social_isolation_score,face_to_face_social_hours_weekly,monthly_game_spending_usd,years_gaming,prediction_result,confidence,algorithm,created_at,academic_work_performance,loss_of_other_interests,grades_gpa,work_productivity_score,mood_state,mood_swing_frequency,withdrawal_symptoms
+1,20,Male,2,Action,Valorant,pc,6,"Very Poor",Never,False,True,True,6,5,4,6,0,4,"Low Risk",95,"Decision Tree","2026-06-03 16:52:42",Excellent,True,,,,,
+2,17,Male,11.1,-,-,-,3.7,-,-,-,-,-,0,0,7,0,0,0,"Low Risk",91.77,DT,"2026-06-03 17:07:08",-,-,,,,,
+3,21,Male,3,-,-,-,7.2,-,-,-,-,-,0,0,2,0,0,0,"Moderate Risk",92.81,DT,"2026-06-03 17:07:08",-,-,,,,,
+4,22,Female,3,Action,Valorant,pc,5.5,"Very Poor",Sometimes,True,True,True,3,1,3,3,0,6,"High Risk",91,"Decision Tree","2026-06-03 17:17:38",Poor,True,,,,,
+5,19,Male,5,Action,Valorant,pc,4.8,"Very Poor",Never,False,True,True,2,2,2,4,0,0,"Low Risk",96,SVM,"2026-06-03 17:38:02",Excellent,False,,,,,
+6,17,Male,11.1,-,-,-,3.7,-,-,-,-,-,0,0,7,0,0,0,"Low Risk",97.68,DT,"2026-06-03 18:24:24",-,-,,,,,
+7,21,Male,3,-,-,-,7.2,-,-,-,-,-,0,0,2,0,0,0,"Moderate Risk",92.48,DT,"2026-06-03 18:24:24",-,-,,,,,
+8,17,Male,11.1,-,-,-,3.7,-,-,-,-,-,0,0,7,0,0,0,"Low Risk",98.79,DT,"2026-06-03 18:24:43",-,-,,,,,
+9,21,Male,3,-,-,-,7.2,-,-,-,-,-,0,0,2,0,0,0,"Moderate Risk",98.68,DT,"2026-06-03 18:24:43",-,-,,,,,
+10,20,Male,2,Action,Valorant,pc,0,"Very Poor",Never,False,True,True,2.8,4,6,3.8,2,2,,94,DT,"2026-06-03 19:33:34",Excellent,False,2.00,5,Happy,Never,4
+11,20,Male,6,2,Valorant,pc,9,"Very Poor",Never,False,True,True,5,4.8,5,5,23,3,,94,DT,"2026-06-03 19:34:40",Excellent,False,2.00,7,Happy,Never,3
+12,11,Male,2,Action,Valorant,pc,5,"Very Poor",Never,False,True,True,5,1.9,5,3.9,25,2,,92,DT,"2026-06-03 19:38:01",Excellent,False,3.00,4,Happy,Never,4
+13,18,Male,2,Action,Valorant,pc,4,"Very Poor",Never,False,True,True,5,1.9,8,2,24,2,"Low Risk",96,DT,"2026-06-03 19:41:58",Excellent,False,3.00,7,Happy,Never,4
+14,17,Male,11.1,-,-,-,3.7,-,-,-,-,-,0,0,7,0,0,0,"Low Risk",96.47,DT,"2026-06-03 19:43:31",-,-,,,,,
+15,21,Male,3,-,-,-,7.2,-,-,-,-,-,0,0,2,0,0,0,"High Risk",90.44,DT,"2026-06-03 19:43:31",-,-,,,,,
+16,19,Female,13,Action,FF,Mobile,9,Poor,Sometimes,False,True,False,0,1,5,5,10,5,"Low Risk",98,DT,"2026-06-03 19:50:54",Poor,False,3.00,4,Neutral,Often,4
+17,17,Male,11.1,-,-,-,3.7,-,-,-,-,-,0,0,7,0,0,0,"Low Risk",95.8,DT,"2026-06-03 19:51:47",-,-,,,,,
+18,21,Male,3,-,-,-,7.2,-,-,-,-,-,0,0,2,0,0,0,"High Risk",94.1,DT,"2026-06-03 19:51:47",-,-,,,,,

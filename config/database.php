@@ -5,8 +5,36 @@ $user = "root";
 $pass = "190606";
 $db   = "gaming_ml";
 
-$conn = mysqli_connect($host,$user,$pass,$db);
+/* =========================
+DATABASE CONNECTION
+========================= */
+
+$conn = mysqli_connect(
+    $host,
+    $user,
+    $pass,
+    $db
+);
+
+/* =========================
+CHECK CONNECTION
+========================= */
 
 if(!$conn){
-    die("Koneksi gagal");
+
+    die(
+        "Koneksi database gagal: "
+        . mysqli_connect_error()
+    );
 }
+
+/* =========================
+SET UTF8
+========================= */
+
+mysqli_set_charset(
+    $conn,
+    "utf8"
+);
+
+?>

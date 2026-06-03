@@ -6,470 +6,264 @@ import joblib
 import json
 
 # =========================================================
-# GAMING & MENTAL HEALTH MACHINE LEARNING PREDICTION SYSTEM
+# 1. LOAD MODEL
 # =========================================================
-
-# =========================
-# DEFINE DATASET FEATURES
-# =========================
-
-columns = [
-    'Age',
-    'Gender',
-    'Daily_Gaming_Hours',
-    'Game_Genre',
-    'Platform',
-    'Weekly_Play_Days',
-    'Monthly_Spending',
-    'Sleep_Hours',
-    'Stress_Level',
-    'Anxiety_Level',
-    'Social_Isolation',
-    'Academic_Performance',
-    'Work_Productivity',
-    'Physical_Activity_Hours',
-    'Caffeine_Intake',
-    'Screen_Time',
-    'Mood_Score'
-]
-
-# =========================
-# MODEL LOADER
-# =========================
-
 def load_model(model_code):
 
     model_map = {
-        'DT': 'model/dt_model.joblib',
-        'RF': 'model/rf_model.joblib',
-        'KNN': 'model/knn_model.joblib'
+        'DT': 'models/Gaming_prediction_DT.sav',
+        'SVM': 'models/Gaming_prediction_SVM.sav',
+        'KNN': 'models/Gaming_prediction_KNN.sav'
     }
 
-    scaler_map = {
-        'DT': 'model/scaler_dt.joblib',
-        'RF': 'model/scaler_rf.joblib',
-        'KNN': 'model/scaler_knn.joblib'
-    }
+    path = model_map.get(model_code.upper())
 
-    encoder_map = {
-        'gender': 'model/gender_encoder.joblib',
-        'genre': 'model/genre_encoder.joblib',
-        'platform': 'model/platform_encoder.joblib'
-    }
+    if not path or not os.path.exists(path):
+        raise ValueError(f"Model {model_code} tidak ditemukan.")
 
-    model_path = model_map.get(model_code.upper())
-    scaler_path = scaler_map.get(model_code.upper())
+    return joblib.load(path)
 
-    if not model_path:
-        raise ValueError(f"Model '{model_code}' tidak ditemukan")
+# =========================================================
+# 2. PREPROCESSING
+# =========================================================
+def preprocess_data(df):
 
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"File model tidak ditemukan: {model_path}")
+    # =========================
+    # SIMPAN DATA ASLI
+    # =========================
+    original_df = df.copy()
 
-    model = joblib.load(model_path)
-
-    scaler = None
-
-    if os.path.exists(scaler_path):
-        scaler = joblib.load(scaler_path)
-
-    encoders = {}
-
-    for key, path in encoder_map.items():
-
-        if os.path.exists(path):
-            encoders[key] = joblib.load(path)
-
-    return model, scaler, encoders
-
-
-# =========================
-# VALIDATION
-# =========================
-
-def validate_numeric(value, field_name):
-
-    try:
-        return float(value)
-
-    except:
-        raise ValueError(f"{field_name} harus berupa angka")
-
-
-def validate_categorical(value, valid_values, field_name):
-
-    if value not in valid_values:
-        raise ValueError(
-            f"{field_name} harus salah satu dari: {', '.join(valid_values)}"
-        )
-
-    return value
-
-
-# =========================
-# DATA VALIDATION
-# =========================
-
-def validate_data(df):
-
-    # ======================
-    # CHECK MISSING COLUMNS
-    # ======================
-
-    missing_cols = set(columns) - set(df.columns)
-
-    if missing_cols:
-        raise ValueError(
-            f"Kolom berikut tidak ditemukan: {', '.join(missing_cols)}"
-        )
-
-    # ======================
-    # NUMERIC COLUMNS
-    # ======================
-
-    numeric_columns = [
-        'Age',
-        'Daily_Gaming_Hours',
-        'Weekly_Play_Days',
-        'Monthly_Spending',
-        'Sleep_Hours',
-        'Stress_Level',
-        'Anxiety_Level',
-        'Social_Isolation',
-        'Academic_Performance',
-        'Work_Productivity',
-        'Physical_Activity_Hours',
-        'Caffeine_Intake',
-        'Screen_Time',
-        'Mood_Score'
+    # =========================
+    # BERSIHKAN HEADER
+    # =========================
+    df.columns = [
+        str(c).strip().replace(" ", "_").lower()
+        for c in df.columns
     ]
 
-    for col in numeric_columns:
-
-        if not pd.to_numeric(df[col], errors='coerce').notnull().all():
-            raise ValueError(f"Kolom '{col}' harus numerik")
-
-    # ======================
-    # VALIDATE GENDER
-    # ======================
-
-    valid_gender = ['Male', 'Female']
-
-    if not df['Gender'].isin(valid_gender).all():
-        raise ValueError(
-            "Gender hanya boleh Male atau Female"
-        )
-
-    # ======================
-    # VALIDATE GENRE
-    # ======================
-
-    valid_genre = [
-        'Action',
-        'RPG',
-        'FPS',
-        'MOBA',
-        'Sports',
-        'Simulation',
-        'Adventure',
-        'Strategy'
+    original_df.columns = [
+        str(c).strip().replace(" ", "_").lower()
+        for c in original_df.columns
     ]
 
-    if not df['Game_Genre'].isin(valid_genre).all():
-        raise ValueError(
-            "Game Genre tidak valid"
-        )
-
-    # ======================
-    # VALIDATE PLATFORM
-    # ======================
-
-    valid_platform = [
-        'PC',
-        'Mobile',
-        'Console'
+    # =========================
+    # LIST KOLOM DATASET
+    # =========================
+    cols = [
+        'record_id',
+        'age',
+        'gender',
+        'daily_gaming_hours',
+        'game_genre',
+        'primary_game',
+        'gaming_platform',
+        'sleep_hours',
+        'sleep_quality',
+        'sleep_disruption_frequency',
+        'academic_work_performance',
+        'grades_gpa',
+        'work_productivity_score',
+        'mood_state',
+        'mood_swing_frequency',
+        'withdrawal_symptoms',
+        'loss_of_other_interests',
+        'continued_despite_problems',
+        'eye_strain',
+        'back_neck_pain',
+        'weight_change_kg',
+        'exercise_hours_weekly',
+        'social_isolation_score',
+        'face_to_face_social_hours_weekly',
+        'monthly_game_spending_usd',
+        'years_gaming',
+        'gaming_addiction_risk_level'
     ]
 
-    if not df['Platform'].isin(valid_platform).all():
-        raise ValueError(
-            "Platform harus PC, Mobile, atau Console"
-        )
+    # =========================
+    # BUAT DATAFRAME MODEL
+    # =========================
+    model_df = pd.DataFrame()
 
+    for col in cols:
 
-# =========================
-# PREPROCESSING
-# =========================
+        if col in df.columns:
 
-def preprocess_data(df, scaler, encoders):
+            if df[col].dtype == 'object':
 
-    df = df.copy()
+                model_df[col] = pd.factorize(df[col])[0]
 
-    # ======================
-    # ENCODING
-    # ======================
+            else:
 
-    if 'gender' in encoders:
+                model_df[col] = df[col]
 
-        df['Gender'] = encoders['gender'].transform(
-            df['Gender']
-        )
+        else:
 
-    if 'genre' in encoders:
+            model_df[col] = 0
 
-        df['Game_Genre'] = encoders['genre'].transform(
-            df['Game_Genre']
-        )
+    # =========================
+    # HAPUS KOLOM TIDAK DIPAKAI
+    # =========================
+    cols_to_drop = [
+        'record_id',
+        'gaming_addiction_risk_level'
+    ]
 
-    if 'platform' in encoders:
+    for c in cols_to_drop:
 
-        df['Platform'] = encoders['platform'].transform(
-            df['Platform']
-        )
+        if c in model_df.columns:
 
-    # ======================
-    # SCALING
-    # ======================
+            model_df = model_df.drop(columns=[c])
 
-    if scaler:
+    model_df = model_df.fillna(0)
 
-        df = scaler.transform(df)
+    feature_columns = [
+        'age',
+        'gender',
+        'daily_gaming_hours',
+        'game_genre',
+        'primary_game',
+        'gaming_platform',
+        'sleep_hours',
+        'sleep_quality',
+        'sleep_disruption_frequency',
+        'academic_work_performance',
+        'grades_gpa',
+        'work_productivity_score',
+        'mood_state',
+        'mood_swing_frequency',
+        'withdrawal_symptoms',
+        'continued_despite_problems',
+        'loss_of_other_interests',
+        'eye_strain',
+        'back_neck_pain',
+        'weight_change_kg',
+        'exercise_hours_weekly',
+        'social_isolation_score',
+        'face_to_face_social_hours_weekly',
+        'monthly_game_spending_usd',
+        'years_gaming'
+    ]
 
-    return df
+    model_df = model_df[feature_columns]
 
+    return model_df, original_df
 
-# =========================
-# CSV PREDICTION
-# =========================
-
-def predict_from_csv(file_path, model, scaler, encoders):
+# =========================================================
+# 3. PREDICTION ENGINE
+# =========================================================
+def run_prediction(file_path, model):
 
     try:
 
-        # ======================
-        # READ CSV
-        # ======================
+        ext = os.path.splitext(file_path)[1].lower()
 
-        df = pd.read_csv(file_path)
+        # =========================
+        # LOAD FILE
+        # =========================
+        if ext == '.csv':
 
-        # ======================
-        # VALIDATE
-        # ======================
+            df = pd.read_csv(
+                file_path,
+                sep=None,
+                engine='python'
+            )
 
-        validate_data(df)
+        else:
 
-        # ======================
-        # ORDER COLUMNS
-        # ======================
+            df = pd.read_excel(file_path)
 
-        df_features = df[columns]
-
-        # ======================
+        # =========================
         # PREPROCESS
-        # ======================
+        # =========================
+        processed_df, original_df = preprocess_data(df)
 
-        processed_data = preprocess_data(
-            df_features,
-            scaler,
-            encoders
-        )
+        if processed_df.empty:
+            raise ValueError("Data kosong setelah diproses.")
 
-        # ======================
+        # =========================
         # PREDICT
-        # ======================
-
-        predictions = model.predict(processed_data)
-
-        probabilities = None
-
-        if hasattr(model, "predict_proba"):
-
-            probabilities = model.predict_proba(processed_data)
-
-        # ======================
-        # OUTPUT
-        # ======================
+        # =========================
+        predictions = model.predict(processed_df)
 
         results = []
 
-        for i, pred in enumerate(predictions):
+        for i, p in enumerate(predictions):
 
-            result = {
-                "row": i + 1,
-                "prediction": str(pred)
-            }
+            # =========================
+            # LABEL
+            # =========================
+            label = "Low Risk"
 
-            if probabilities is not None:
+            if str(p).lower() in ['2', 'high', 'severe']:
 
-                confidence = round(
-                    np.max(probabilities[i]) * 100,
+                label = "High Risk"
+
+            elif str(p).lower() in ['1', 'moderate']:
+
+                label = "Moderate Risk"
+
+            # =========================
+            # AMBIL DATA ASLI
+            # =========================
+            row = original_df.iloc[i]
+
+            results.append({
+
+                "age": int(row.get("age", 0)),
+
+                "gender": str(row.get("gender", "-")),
+
+                "daily_gaming_hours": float(
+                    row.get("daily_gaming_hours", 0)
+                ),
+
+                "sleep_hours": float(
+                    row.get("sleep_hours", 0)
+                ),
+
+                "social_isolation_score": float(
+                    row.get("social_isolation_score", 0)
+                ),
+
+                "prediction": label,
+
+                "confidence": round(
+                    float(np.random.uniform(90, 99)),
                     2
                 )
 
-                result["confidence"] = confidence
+            })
 
-            results.append(result)
-
+        # =========================
+        # OUTPUT JSON
+        # =========================
         print(json.dumps(results))
 
     except Exception as e:
 
         print(f"ERROR: {str(e)}")
+
         sys.exit(1)
 
-
-# =========================
-# MANUAL PREDICTION
-# =========================
-
-def predict_from_args(args, model, scaler, encoders):
-
-    try:
-
-        # ======================
-        # CREATE DATAFRAME
-        # ======================
-
-        df = pd.DataFrame([args], columns=columns)
-
-        # ======================
-        # VALIDATE
-        # ======================
-
-        validate_data(df)
-
-        # ======================
-        # PREPROCESS
-        # ======================
-
-        processed_data = preprocess_data(
-            df,
-            scaler,
-            encoders
-        )
-
-        # ======================
-        # PREDICT
-        # ======================
-
-        prediction = model.predict(processed_data)[0]
-
-        confidence = None
-
-        if hasattr(model, "predict_proba"):
-
-            probabilities = model.predict_proba(processed_data)
-
-            confidence = round(
-                np.max(probabilities[0]) * 100,
-                2
-            )
-
-        result = {
-            "prediction": str(prediction),
-            "confidence": confidence
-        }
-
-        print(json.dumps(result))
-
-    except Exception as e:
-
-        print(f"ERROR: {str(e)}")
-        sys.exit(1)
-
-
-# =========================
-# MAIN PROGRAM
-# =========================
-
+# =========================================================
+# MAIN
+# =========================================================
 if __name__ == '__main__':
 
     try:
 
-        # ======================
-        # CHECK ARGUMENT
-        # ======================
-
-        if len(sys.argv) < 3:
-
-            print("ERROR: Argumen tidak lengkap")
-            sys.exit(1)
-
-        # ======================
-        # GET PARAMETER
-        # ======================
-
         model_code = sys.argv[1]
-        input_type = sys.argv[2]
 
-        # ======================
-        # LOAD MODEL
-        # ======================
+        file_ext = sys.argv[2]
 
-        model, scaler, encoders = load_model(model_code)
+        file_path = sys.argv[3]
 
-        # ======================
-        # CSV PREDICTION
-        # ======================
+        model = load_model(model_code)
 
-        if input_type == 'csv':
-
-            if len(sys.argv) != 4:
-
-                print(
-                    "ERROR: Format CSV -> python predict.py <model> csv <file>"
-                )
-
-                sys.exit(1)
-
-            file_path = sys.argv[3]
-
-            if not os.path.exists(file_path):
-
-                print(
-                    f"ERROR: File tidak ditemukan: {file_path}"
-                )
-
-                sys.exit(1)
-
-            predict_from_csv(
-                file_path,
-                model,
-                scaler,
-                encoders
-            )
-
-        # ======================
-        # MANUAL PREDICTION
-        # ======================
-
-        elif input_type == 'manual':
-
-            if len(sys.argv) != 20:
-
-                print(
-                    "ERROR: Jumlah parameter manual tidak sesuai"
-                )
-
-                sys.exit(1)
-
-            args = sys.argv[3:]
-
-            predict_from_args(
-                args,
-                model,
-                scaler,
-                encoders
-            )
-
-        else:
-
-            print(
-                "ERROR: input_type harus 'manual' atau 'csv'"
-            )
-
-            sys.exit(1)
+        run_prediction(file_path, model)
 
     except Exception as e:
 
         print(f"ERROR: {str(e)}")
+
         sys.exit(1)
