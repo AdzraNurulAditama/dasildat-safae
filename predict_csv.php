@@ -3,7 +3,7 @@ session_start();
 include 'config/database.php';
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
+    header("Location: login.php?message=Fitur prediksi hanya dapat diakses oleh pengguna yang telah login.");
     exit;
 }
 

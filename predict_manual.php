@@ -1,11 +1,9 @@
 <?php
 session_start();
 include 'config/database.php';
-if(!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
 
-if(isset($_POST['next_1'])) {
-    $_SESSION['step1_data'] = $_POST;
-    header("Location: predict_manual_2.php");
+if(!isset($_SESSION['user_id'])) {
+    header("Location: login.php?message=Fitur prediksi hanya dapat diakses oleh pengguna yang telah login.");
     exit;
 }
 include 'components/header.php';

@@ -171,6 +171,12 @@ body::after {
                         <p class="text-xs md:text-sm text-slate-500 m-0">Otentikasi kredensial Anda untuk membuka enkripsi dasbor.</p>
                     </div>
 
+                    <?php if(isset($_GET['message'])): ?>
+                    <div class="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-700 text-xs font-semibold flex items-center gap-2.5">
+                        <span>🔒</span>
+                        <span><?= htmlspecialchars($_GET['message']); ?></span>
+                    </div>
+                <?php endif; ?>
                     <?php if($error): ?>
                         <div class="mb-6 p-4 rounded-xl border border-red-200 bg-red-50 text-red-600 text-xs font-semibold flex items-center gap-2.5 animate-pulse">
                             <span>⚠️</span>

@@ -236,4 +236,3 @@ if(isset($_POST['update_model'])){
 </div>
 
 <?php include 'components/footer.php'; ?>
-```

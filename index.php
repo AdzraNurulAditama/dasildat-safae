@@ -267,6 +267,64 @@ include 'components/header.php';
             </div>
                         </div>
 
+                <!-- ALGORITMA YANG DIGUNAKAN -->
+<div class="bg-white border border-slate-200 rounded-[2rem] p-10 md:p-14 mb-16 shadow-lg shadow-slate-200/50">
+
+    <div class="text-center mb-12">
+        <span class="inline-block px-4 py-2 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-xs font-bold uppercase tracking-widest">
+            🤖 Machine Learning
+        </span>
+
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-4 mb-4">
+            Algoritma yang Digunakan
+        </h2>
+
+        <p class="text-slate-600 max-w-3xl mx-auto">
+            Sistem ini menggunakan tiga algoritma machine learning untuk
+            mempelajari pola dari data pemain game dan memprediksi tingkat
+            risiko kecanduan game.
+        </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+            <div class="text-3xl mb-3">🌳</div>
+            <h3 class="font-bold text-lg mb-3">Decision Tree</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                Decision Tree bekerja seperti pohon keputusan. Algoritma ini
+                membuat serangkaian pertanyaan berdasarkan data pengguna,
+                kemudian mengikuti cabang-cabang keputusan hingga menghasilkan
+                prediksi tingkat risiko kecanduan game.
+            </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+            <div class="text-3xl mb-3">📏</div>
+            <h3 class="font-bold text-lg mb-3">Support Vector Machine (SVM)</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                SVM bekerja dengan mencari batas pemisah terbaik antara kelompok
+                pengguna yang memiliki tingkat risiko berbeda. Dengan cara ini,
+                sistem dapat mengenali pola yang membedakan pengguna berisiko
+                rendah dan tinggi.
+            </p>
+        </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="text-3xl mb-3">👥</div>
+                        <h3 class="font-bold text-lg mb-3">K-Nearest Neighbor (KNN)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            KNN menentukan hasil prediksi dengan membandingkan data pengguna
+                            dengan beberapa data lain yang memiliki karakteristik paling
+                            mirip, kemudian mengambil keputusan berdasarkan mayoritas
+                            tetangga terdekat tersebut.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
                 
                 <div class="group/stat border border-slate-200 hover:border-purple-300 rounded-3xl p-6 md:p-8 transition-all duration-300 shadow-md hover:shadow-xl flex flex-col justify-between bg-white" data-aos="fade-up" data-aos-delay="100">

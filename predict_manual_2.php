@@ -1,14 +1,15 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['step1_data'])) {
-    header("Location: predict_manual.php");
+session_start();
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php?message=Fitur prediksi hanya dapat diakses oleh pengguna yang telah login.");
     exit;
 }
 
-if(isset($_POST['next_2'])) {
-    $_SESSION['step2_data'] = $_POST;
-    header("Location: predict_manual_3.php");
+if(!isset($_SESSION['step1_data'])) {
+    header("Location: predict_manual.php");
     exit;
 }
 

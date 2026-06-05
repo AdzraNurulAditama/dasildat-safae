@@ -116,8 +116,7 @@ include '../components/header.php';
 
     <div class="row g-4 mb-5">
 
-        <div class="col-md-4">
-            <div class="stat-card">
+            <div class="col-md-6">            <div class="stat-card">
                 <div class="stat-number">
                     <?= $total_users ?>
                 </div>
@@ -127,24 +126,12 @@ include '../components/header.php';
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="stat-card">
+            <div class="col-md-6">            <div class="stat-card">
                 <div class="stat-number">
                     <?= $total_history ?>
                 </div>
                 <div class="stat-label">
                     Total History
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-number">
-                    <?= $accuracy ?>%
-                </div>
-                <div class="stat-label">
-                    Model Accuracy
                 </div>
             </div>
         </div>

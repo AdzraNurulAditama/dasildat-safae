@@ -1,3 +1,3 @@
-DecisionTree=98.04
-KNN=63.24
-SVM=60.29
+DecisionTree=86.42
+KNN=69.38
+SVM=67.9

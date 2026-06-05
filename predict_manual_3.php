@@ -2,7 +2,12 @@
 session_start();
 include 'config/database.php';
 
-// Proteksi akses
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php?message=Fitur prediksi hanya dapat diakses oleh pengguna yang telah login.");
+    exit;
+}
+
+// Proteksi akses step
 if(!isset($_SESSION['step1_data']) || !isset($_SESSION['step2_data'])) {
     header("Location: predict_manual.php");
     exit;

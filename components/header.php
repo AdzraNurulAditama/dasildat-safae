@@ -218,13 +218,35 @@ body {
 
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['predict_manual.php', 'predict_csv.php'])) ? 'active' : ''; ?>" 
-                           href="#" role="button" data-bs-toggle="dropdown">Predict</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="predict_manual.php">Manual Input</a></li>
-                            <li><a class="dropdown-item" href="predict_csv.php">Upload</a></li>
-                        </ul>
+                <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['predict_manual.php', 'predict_csv.php'])) ? 'active' : ''; ?>"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown">
+                    Predict
+                </a>
+                    
+                <ul class="dropdown-menu">
+
+                    <li>
+                        <a class="dropdown-item"
+                        href="<?= isset($_SESSION['user_id'])
+                                ? 'predict_manual.php'
+                                : 'login.php?message=Silakan login terlebih dahulu untuk menggunakan fitur prediksi'; ?>">
+                            Manual Input
+                        </a>
                     </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                        href="<?= isset($_SESSION['user_id'])
+                                ? 'predict_csv.php'
+                                : 'login.php?message=Silakan login terlebih dahulu untuk menggunakan fitur prediksi'; ?>">
+                            Upload CSV
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
                     <li class="nav-item">
                         <a class="nav-link <?= ($current_page == 'history.php') ? 'active' : ''; ?>" href="history.php">History</a>
                     </li>
@@ -248,7 +270,3 @@ body {
         </div>
     </div>
 </nav>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
