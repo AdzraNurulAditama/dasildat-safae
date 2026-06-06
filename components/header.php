@@ -19,7 +19,7 @@ body {
     background-color: #f8fafc; 
     margin: 0; 
     padding: 0; 
-    padding-top: 100px; /* Memberi ruang agar konten utama tidak tertutup navbar fixed */
+    padding-top: 100px; 
 }
 
 .custom-navbar {
@@ -200,73 +200,116 @@ body {
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
+          <ul class="navbar-nav ms-auto align-items-center">
 
-                <li class="nav-item">
-                    <a class="nav-link <?= ($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php">Home</a>
+    <li class="nav-item">
+        <a class="nav-link <?= ($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php">
+            Home
+        </a>
+    </li>
+
+    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+    <li class="nav-item">
+        <a class="nav-link <?= ($current_page == 'update_model.php') ? 'active' : ''; ?>" href="update_model.php">
+            Update Model
+        </a>
+    </li>
+    <?php endif; ?>
+
+    <li class="nav-item">
+        <a class="nav-link <?= ($current_page == 'models.php') ? 'active' : ''; ?>" href="models.php">
+            Models
+        </a>
+    </li>
+
+    <!-- Predict selalu tampil -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['predict_manual.php', 'predict_csv.php'])) ? 'active' : ''; ?>"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Predict
+        </a>
+
+        <ul class="dropdown-menu">
+
+            <?php if(isset($_SESSION['user_id'])): ?>
+
+                <li>
+                    <a class="dropdown-item" href="predict_manual.php">
+                        Manual Input
+                    </a>
                 </li>
 
-                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-                <li class="nav-item">
-                    <a class="nav-link <?= ($current_page == 'update_model.php') ? 'active' : ''; ?>" href="update_model.php">Update Model</a>
-                </li>
-                <?php endif; ?>
-
-                <li class="nav-item">
-                    <a class="nav-link <?= ($current_page == 'models.php') ? 'active' : ''; ?>" href="models.php">Models</a>
+                <li>
+                    <a class="dropdown-item" href="predict_csv.php">
+                        Upload CSV
+                    </a>
                 </li>
 
-                <?php if(isset($_SESSION['user_id'])): ?>
-                    <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle <?= (in_array($current_page, ['predict_manual.php', 'predict_csv.php'])) ? 'active' : ''; ?>"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown">
-                    Predict
-                </a>
-                    
-                <ul class="dropdown-menu">
+            <?php else: ?>
 
-                    <li>
-                        <a class="dropdown-item"
-                        href="<?= isset($_SESSION['user_id'])
-                                ? 'predict_manual.php'
-                                : 'login.php?message=Silakan login terlebih dahulu untuk menggunakan fitur prediksi'; ?>">
-                            Manual Input
-                        </a>
-                    </li>
+                <li>
+                    <a class="dropdown-item" href="login.php">
+                        Manual Input
+                    </a>
+                </li>
 
-                    <li>
-                        <a class="dropdown-item"
-                        href="<?= isset($_SESSION['user_id'])
-                                ? 'predict_csv.php'
-                                : 'login.php?message=Silakan login terlebih dahulu untuk menggunakan fitur prediksi'; ?>">
-                            Upload CSV
-                        </a>
-                    </li>
+                <li>
+                    <a class="dropdown-item" href="login.php">
+                        Upload CSV
+                    </a>
+                </li>
 
-                </ul>
-            </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= ($current_page == 'history.php') ? 'active' : ''; ?>" href="history.php">History</a>
-                    </li>
-                    <li class="nav-item ms-lg-3">
-                        <div class="username-display"><i class="bi bi-person-circle"></i> <?= htmlspecialchars($_SESSION['username']); ?></div>
-                    </li>
-                    <li class="nav-item ms-lg-2">
-                        <a href="<?= (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../logout.php' : 'logout.php'; ?>" class="logout-btn">
-                            Logout
-                        </a>                   
-                    </li>
-                <?php else: ?>
-                    <li class="nav-item ms-lg-3">
-                        <a href="login.php" class="nav-btn-secondary">LOGIN</a>
-                    </li>
-                    <li class="nav-item ms-lg-2">
-                        <a href="register.php" class="nav-btn">REGISTER</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
+            <?php endif; ?>
+
+        </ul>
+    </li>
+
+    <?php if(isset($_SESSION['user_id'])): ?>
+
+        <li class="nav-item">
+            <a class="nav-link <?= ($current_page == 'history.php') ? 'active' : ''; ?>" href="history.php">
+                History
+            </a>
+        </li>
+
+        <li class="nav-item ms-lg-3">
+            <div class="username-display">
+                <i class="bi bi-person-circle"></i>
+                <?= htmlspecialchars($_SESSION['username']); ?>
+            </div>
+        </li>
+
+        <li class="nav-item ms-lg-2">
+            <a href="<?= (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../logout.php' : 'logout.php'; ?>"
+               class="logout-btn">
+                Logout
+            </a>
+        </li>
+
+    <?php else: ?>
+
+        <li class="nav-item ms-lg-3">
+            <a href="login.php" class="nav-btn-secondary">
+                LOGIN
+            </a>
+        </li>
+
+        <li class="nav-item ms-lg-2">
+            <a href="register.php" class="nav-btn">
+                REGISTER
+            </a>
+        </li>
+
+    <?php endif; ?>
+
+</ul>
         </div>
     </div>
 </nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

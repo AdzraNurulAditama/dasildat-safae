@@ -164,19 +164,13 @@ body::after {
             </div>
 
             <div class="lg:col-span-5 w-full" data-aos="fade-left" data-aos-duration="1000">
-                <div class="border border-white rounded-[36px] p-6 md:p-10 shadow-2xl shadow-slate-200/60 relative overflow-hidden" style="background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px);">
-                    
+              <div class="border border-white rounded-[36px] p-6 md:p-10 shadow-2xl shadow-slate-200/60 relative overflow-hidden flex flex-col min-h-[550px]" style="background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px);">
+
                     <div class="mb-8">
                         <h2 class="text-2xl md:text-3xl font-black tracking-tight text-slate-900 mb-2 font-extrabold">Login Account</h2>
                         <p class="text-xs md:text-sm text-slate-500 m-0">Otentikasi kredensial Anda untuk membuka enkripsi dasbor.</p>
                     </div>
 
-                    <?php if(isset($_GET['message'])): ?>
-                    <div class="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-700 text-xs font-semibold flex items-center gap-2.5">
-                        <span>🔒</span>
-                        <span><?= htmlspecialchars($_GET['message']); ?></span>
-                    </div>
-                <?php endif; ?>
                     <?php if($error): ?>
                         <div class="mb-6 p-4 rounded-xl border border-red-200 bg-red-50 text-red-600 text-xs font-semibold flex items-center gap-2.5 animate-pulse">
                             <span>⚠️</span>
@@ -204,7 +198,7 @@ body::after {
                         </button>
                     </form>
 
-                    <div class="text-center mt-8 pt-6 border-t border-slate-200 text-xs text-slate-500">
+                    <div class="text-center mt-auto pt-6 border-t border-slate-200 text-xs text-slate-500">
                         Belum terdaftar di jaringan? 
                         <a href="register.php" class="text-pink-600 font-bold hover:text-pink-700 text-decoration-none ml-1 transition-colors">Buat Akun Baru</a>
                     </div>
