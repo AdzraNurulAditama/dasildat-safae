@@ -7,6 +7,8 @@ if(!isset($_SESSION['user_id'])){
     exit;
 }
 
+$user_id = mysqli_real_escape_string($conn, $_SESSION['user_id']);
+
 include 'components/header.php';
 
 $result = null;
@@ -57,7 +59,7 @@ if(isset($_POST['predict_csv'])){
         // Ganti dataset lama dengan dataset upload terbaru
         copy(
             $upload_path,
-            "dataset/Gaming and Mental Health.csv"
+            "dataset/latest_upload.csv"
         );
 
         // Retraining otomatis
@@ -276,9 +278,11 @@ if(isset($_POST['predict_csv'])){
 
                             $prediction_result = $prediction;
                             $algorithm = mysqli_real_escape_string($conn, $model);
-
+                            $user_id = $_SESSION['user_id'];
+                            
                             mysqli_query($conn, "
                                 INSERT INTO history (
+                                user_id,
                                 age,
                                 gender,
                                 daily_gaming_hours,
@@ -304,6 +308,7 @@ if(isset($_POST['predict_csv'])){
                                 algorithm
                                                             )
                                 VALUES (
+                                    '$user_id',
                                     '$age',
                                     '$gender',
                                     '$daily_gaming_hours',
@@ -409,14 +414,15 @@ tailwind.config = {
                 <div class="border border-slate-200 rounded-3xl p-6 shadow-lg bg-white">
 
                     <form method="POST"
-                          enctype="multipart/form-data"
-                          class="space-y-6">
+                        enctype="multipart/form-data"
+                        class="space-y-6"
+                        id="predictForm">
 
                         <div>
 
                             <label class="text-xs font-bold uppercase tracking-wider text-purple-600 block mb-2 font-mono">
 
-                                [ 01_MODEL_ENGINE ]
+                                [ 01_MODEL_SELECTION ]
 
                             </label>
 
@@ -424,7 +430,7 @@ tailwind.config = {
                                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 text-sm text-slate-900 focus:outline-none focus:border-purple-400 focus:bg-white"
                                     required>
 
-                                <option value="DT">Decision Tree Architecture</option>
+                                <option value="DT">Decision Tree</option>
                                 <option value="RF">SVM</option>
                                 <option value="KNN">K-Nearest Neighbor</option>
 
@@ -479,6 +485,7 @@ tailwind.config = {
 
                             <button type="submit"
                                     name="predict_csv"
+                                    id="predictBtn"
                                     class="w-full relative overflow-hidden h-14 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs tracking-widest uppercase shadow-md hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-[1.01]">
 
                                 ⚡ Predict
@@ -496,7 +503,7 @@ tailwind.config = {
 
                             <?php endif; ?>
 
-                            <a href="template/template_dataset.xlsx"
+                            <a href="template/template_dataset.csv"
                                download
                                class="w-full flex items-center justify-center gap-2 h-12 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-600 font-bold text-xs tracking-widest uppercase hover:bg-emerald-100 transition-all duration-300">
 
@@ -520,7 +527,7 @@ tailwind.config = {
 
                         <h3 class="text-base font-bold tracking-wide text-slate-900">
 
-                            Pipeline Output Matrix
+                            Predict Results
 
                         </h3>
                     </div>
@@ -618,7 +625,7 @@ tailwind.config = {
 
                             <h5 class="text-xs font-bold tracking-wider text-slate-400 font-mono uppercase">
 
-                                [ Awaiting Stream Ingestion ]
+                                [ Awaiting Prediction Results ]
 
                             </h5>
 

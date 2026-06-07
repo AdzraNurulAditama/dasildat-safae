@@ -1,0 +1,50 @@
+age;gender;daily_gaming_hours;game_genre;primary_game;gaming_platform;sleep_hours;sleep_quality;sleep_disruption_frequency;academic_work_performance;grades_gpa;work_productivity_score;mood_state;mood_swing_frequency;withdrawal_symptoms;loss_of_other_interests;continued_despite_problems;eye_strain;back_neck_pain;weight_change_kg;exercise_hours_weekly;social_isolation_score;face_to_face_social_hours_weekly;monthly_game_spending_usd;years_gaming
+20;Male;7;RPG;Valorant;Mobile;2;poor;sometimes;poor;2;2;happy;never;2;no;no;yes;yes;2;1;8;8;30;5
+18;Male;2;Adventure;Valorant;PC;8;average;often;good;2;5;stressed;sometimes;3;yes;no;yes;yes;4;2;10;3;14;8
+20;Female;8;Adventure;Dota 2;PC;5;poor;often;good;2;5;happy;often;1;yes;yes;yes;yes;2;5;6;4;36;9
+24;Male;10;FPS;Genshin Impact;Mobile;8;average;often;good;4;4;stressed;often;4;yes;yes;no;no;2;4;6;7;39;5
+19;Female;8;RPG;Genshin Impact;Mobile;8;average;sometimes;poor;4;3;happy;never;1;yes;no;no;no;2;1;10;8;13;7
+21;Male;4;Sports;Candy Crush;Mobile;7;good;often;average;2;5;happy;never;1;yes;yes;no;no;4;2;4;7;31;4
+23;Female;8;RPG;Valorant;PC;5;average;sometimes;average;2;2;neutral;sometimes;3;no;yes;no;yes;4;1;9;3;26;7
+19;Male;9;Sports;Mobile Legends;PC;5;poor;often;good;3;5;stressed;never;1;yes;yes;no;no;4;3;5;10;39;8
+22;Male;7;Sports;Mobile Legends;Mobile;8;good;often;good;2;3;stressed;sometimes;4;no;no;yes;yes;4;2;10;7;21;10
+22;Female;2;RPG;Genshin Impact;PC;7;good;sometimes;good;3;4;stressed;sometimes;1;no;yes;no;no;1;2;4;5;33;6
+23;Male;2;Adventure;EA FC;Mobile;5;average;often;average;2;2;neutral;never;2;yes;yes;yes;no;3;1;7;9;30;9
+18;Female;7;Puzzle;Candy Crush;Mobile;5;poor;never;poor;3;3;neutral;sometimes;1;no;yes;no;yes;4;4;9;6;11;1
+22;Male;9;Sports;Mobile Legends;PC;7;good;sometimes;average;4;4;neutral;often;1;no;yes;no;yes;1;3;5;9;48;3
+19;Female;6;Simulation;Genshin Impact;Console;7;good;sometimes;average;3;5;happy;often;4;yes;yes;no;no;3;3;9;7;22;4
+24;Male;6;Simulation;Candy Crush;PC;8;average;often;poor;2;5;happy;sometimes;1;yes;yes;yes;no;2;4;6;4;16;6
+19;Male;6;Sports;Mobile Legends;Mobile;8;good;never;good;4;3;stressed;sometimes;1;yes;yes;yes;yes;2;1;4;8;12;5
+20;Male;2;Puzzle;Dota 2;Console;5;poor;never;good;2;3;neutral;often;1;yes;yes;no;yes;1;5;6;5;49;10
+20;Male;5;Simulation;EA FC;Mobile;8;poor;sometimes;poor;2;3;stressed;never;2;yes;no;no;no;2;1;5;7;30;8
+24;Male;5;Sports;Minecraft;PC;5;poor;often;poor;2;4;neutral;sometimes;1;no;yes;yes;yes;2;4;10;5;28;2
+18;Female;9;FPS;EA FC;Console;5;good;never;poor;4;2;stressed;sometimes;1;no;yes;no;no;4;5;7;5;37;6
+23;Female;5;RPG;Valorant;PC;7;good;often;good;2;4;neutral;never;2;yes;no;yes;yes;1;5;10;5;28;1
+20;Female;2;Puzzle;Candy Crush;Mobile;6;good;often;good;2;2;happy;never;4;no;no;no;no;2;4;10;9;45;1
+18;Female;9;RPG;Candy Crush;Mobile;8;good;sometimes;good;4;4;neutral;never;2;no;yes;yes;yes;2;1;10;7;9;8
+20;Female;2;Sports;EA FC;Console;7;good;never;poor;4;3;neutral;never;2;no;no;yes;no;2;5;7;10;36;2
+21;Male;2;Adventure;Dota 2;PC;6;good;often;good;2;2;happy;never;4;yes;yes;yes;no;3;1;4;3;22;1
+21;Female;6;Adventure;EA FC;Mobile;7;poor;never;average;4;4;happy;sometimes;2;no;no;no;yes;1;4;5;5;10;6
+18;Male;7;FPS;EA FC;PC;6;average;often;good;4;3;happy;sometimes;4;yes;yes;yes;no;2;5;5;5;16;3
+23;Female;5;Simulation;Genshin Impact;Mobile;7;good;often;good;3;4;stressed;never;3;no;yes;no;no;4;2;6;3;22;6
+18;Male;10;Adventure;Mobile Legends;Mobile;7;good;never;poor;4;3;happy;sometimes;4;yes;yes;yes;no;2;3;9;4;12;4
+21;Male;6;MOBA;EA FC;PC;5;good;never;average;2;4;neutral;often;4;yes;yes;yes;yes;4;4;8;4;24;8
+21;Male;4;Simulation;EA FC;Console;7;average;never;good;3;2;stressed;often;4;yes;yes;yes;no;2;3;5;6;6;4
+20;Female;6;RPG;Candy Crush;Mobile;5;average;often;good;4;3;happy;often;1;no;no;yes;yes;3;5;4;7;17;6
+19;Male;2;FPS;EA FC;Console;5;good;often;good;2;5;happy;often;1;no;yes;no;no;2;5;4;6;39;9
+18;Female;4;Puzzle;Mobile Legends;Console;6;poor;never;poor;3;5;stressed;never;3;no;no;no;no;4;3;7;6;26;5
+19;Female;2;Adventure;Minecraft;Console;8;average;often;average;4;2;happy;sometimes;1;no;no;no;yes;2;4;5;4;46;8
+21;Male;3;Sports;Valorant;Console;7;average;sometimes;average;2;5;stressed;never;1;no;yes;yes;yes;3;5;6;8;40;1
+22;Male;6;RPG;Mobile Legends;Mobile;5;poor;often;good;2;2;neutral;often;3;no;no;yes;no;3;3;6;9;22;7
+21;Female;4;Adventure;Dota 2;Console;6;poor;often;poor;3;3;neutral;never;3;yes;no;no;yes;4;4;8;4;11;2
+20;Male;5;Sports;Valorant;PC;5;average;never;average;4;2;stressed;never;1;no;yes;no;yes;2;2;10;4;10;3
+19;Female;7;FPS;EA FC;PC;5;average;sometimes;poor;2;2;neutral;never;2;no;no;no;no;3;1;7;6;49;4
+21;Female;3;FPS;Minecraft;PC;5;poor;never;poor;2;2;stressed;sometimes;4;no;yes;yes;yes;3;5;5;7;19;4
+19;Female;10;FPS;Mobile Legends;PC;7;good;sometimes;poor;3;4;neutral;often;1;yes;yes;yes;no;4;1;5;6;12;3
+19;Female;10;RPG;Mobile Legends;PC;5;average;sometimes;poor;3;3;neutral;sometimes;2;yes;yes;yes;no;4;4;7;9;23;10
+21;Male;10;FPS;Mobile Legends;PC;6;good;sometimes;average;2;3;happy;sometimes;4;no;yes;yes;yes;3;3;7;10;49;8
+23;Male;9;FPS;Valorant;Console;6;poor;sometimes;poor;3;5;happy;often;2;yes;yes;yes;yes;3;4;7;5;42;9
+23;Female;8;Simulation;Valorant;Mobile;5;good;often;good;2;4;neutral;sometimes;2;no;no;no;yes;1;1;8;3;40;1
+20;Male;8;Adventure;Genshin Impact;Mobile;6;average;sometimes;poor;4;4;stressed;often;1;no;yes;no;no;3;5;9;9;22;10
+21;Male;5;MOBA;Mobile Legends;Mobile;8;poor;often;poor;4;5;neutral;often;3;yes;yes;yes;no;3;5;9;10;41;7
+23;Male;5;RPG;Dota 2;Console;5;poor;sometimes;average;3;5;stressed;never;4;yes;yes;no;yes;3;1;6;7;26;3

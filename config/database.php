@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "190606";
 $db   = "gaming_ml";
 
 /* =========================
